@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Library for IPv4 data transformation.
+ * All arguments are GMP resources.
+ *
+ * @link    https://github.com/Haran/PHP.IPv4
+ * @author  Olegs Capligins
+ * @licence GPLv3
+ */
 class IPTransforms
 {
 

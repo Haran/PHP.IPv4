@@ -1,14 +1,11 @@
 <?php
-
-interface iAddress
-{
-    public function isValid();
-    public function getFormat();
-    public function getMaxBlock();
-    public function getHumanReadable();
-    public function convertTo( $format );
-}
-
+/**
+ * Class for IPv4 addresses management.
+ *
+ * @link    https://github.com/Haran/PHP.IPv4
+ * @author  Olegs Capligins
+ * @license GPL v3
+ */
 class Address extends IPv4 implements iAddress
 {
 

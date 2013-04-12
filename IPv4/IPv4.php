@@ -5,10 +5,44 @@ require_once('classes' . DIRECTORY_SEPARATOR . 'Address.php');
 require_once('classes' . DIRECTORY_SEPARATOR . 'Mask.php');
 
 /**
- * Library for IPv4 addresses management
+ * Interface iAddress.
+ * Methods for IPv4 addresses management.
+ */
+interface iAddress
+{
+    public function isValid();
+    public function getFormat();
+    public function getMaxBlock();
+    public function getHumanReadable();
+    public function convertTo( $format );
+}
+
+/**
+ * Interface iSubnet.
+ * Methods for IPv4 subnet masks management.
+ */
+interface iSubnet
+{
+    public function isValid();
+    public function isSubnet();
+    public function getRange();
+    public function has( $ip );
+    public function getFormat();
+    public function getAddress();
+    public function countHosts();
+    public function isBroadcast();
+    public function getBroadcast();
+    public function getHumanReadable();
+    public function convertTo( $format );
+}
+
+/**
+ * Library for IPv4 addresses management.
+ * Brief documentation is avaliable on Github and in readme.
  *
+ * @link    https://github.com/Haran/PHP.IPv4
  * @author  Olegs Capligins
- * @licence GPLv2
+ * @licence GPLv3
  */
 class IPv4
 {

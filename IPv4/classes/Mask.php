@@ -1,22 +1,6 @@
 <?php
-
-interface iSubnet
-{
-    public function isValid();
-    public function isSubnet();
-    public function getRange();
-    public function has( $ip );
-    public function getFormat();
-    public function getAddress();
-    public function countHosts();
-    public function isBroadcast();
-    public function getBroadcast();
-    public function getHumanReadable();
-    public function convertTo( $format );
-}
-
 /**
- * Class for IPv4 subnet mask management.
+ * Class for IPv4 subnet masks management.
  *
  * @link    https://github.com/Haran/PHP.IPv4
  * @author  Olegs Capligins
