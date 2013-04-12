@@ -1,6 +1,6 @@
 # PHP IPv4 Library
 
-You can use IP-addresses and subnet masks in any format you like: dotted decimal, unsigned long, signed long, hex, dotted hex and dotted octal.
+You can use IP-addresses and subnet masks in any format you like: dotted decimal, unsigned long, signed long, hex, dotted hex, dotted octal and cidr.
 
 ## License
 
