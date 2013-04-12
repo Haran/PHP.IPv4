@@ -15,11 +15,19 @@ interface iSubnet
     public function convertTo( $format );
 }
 
+/**
+ * Class for IPv4 subnet mask management.
+ *
+ * @link    https://github.com/Haran/PHP.IPv4
+ * @author  Olegs Capligins
+ * @license GPL v3
+ */
 class Mask extends Address implements iSubnet
 {
 
     /**
-     * Constructor registers subnet mask static property
+     * Constructor.
+     * Registers subnet mask static property.
      *
      * @param string $subnet
      */
@@ -48,10 +56,13 @@ class Mask extends Address implements iSubnet
     public function isValid( $strict = false )
     {
 
+        // Check if address was set and if it is valid
         if( isset(self::$ip) && is_null(self::$ipResource) ) {
             return false;
         }
 
+        // Strict check for subnet.
+        // In this case address must be a valid subnet address, otherwise 'false' will be returned
         elseif( !is_null(self::$ipResource) && $strict==true && !is_null(self::$subnetResource)  ) {
             $subnet = long2ip(gmp_strval(self::$ipResource));
             $mask   = gmp_popcount(self::$subnetResource);
@@ -113,6 +124,14 @@ class Mask extends Address implements iSubnet
 
     /**
      * Converts subnet mask to a certain format.
+     * Supported formats:
+     * - HumanReadable
+     * - Hex
+     * - HexDotted
+     * - Oct
+     * - Long
+     * - Bin
+     * - Cidr
      *
      * @param $format string
      * @return string

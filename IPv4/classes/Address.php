@@ -56,7 +56,8 @@ class Address extends IPv4 implements iAddress
         'Bin'           => '/(?=^.*1.*$)^([0-1]{32})+$/',
 
         // ip2long formats
-            'Long'          => array(-2147483649, 4294967296),
+        'Long'          => array(-2147483649, 4294967296),
+
     );
 
     /**
@@ -140,6 +141,13 @@ class Address extends IPv4 implements iAddress
 
     /**
      * Converts IP-address to a certain format.
+     * Supported formats:
+     * - HumanReadable
+     * - Hex
+     * - HexDotted
+     * - Oct
+     * - Long
+     * - Bin
      *
      * @param $format string
      * @return string
