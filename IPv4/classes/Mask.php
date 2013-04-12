@@ -26,9 +26,12 @@ class Mask extends Address implements iSubnet
     public function __construct( $subnet )
     {
 
+        // Adding new pattern
+        $this->formats['Cidr'] = '%^(/[1-9]$|/[1-2][0-9]|/3[0-2])$%i';
+
+        // Properties
         self::$subnet          = $subnet;
         self::$subnetResource  = $this->unifyAddress();
-        $this->formats['Cidr'] = '%^(/[1-9]$|/[1-2][0-9]|/3[0-2])$%i';
 
         if( !is_null(self::$subnetResource) ) {
             self::$subnetResource = gmp_init( self::$subnetResource );
