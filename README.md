@@ -2,6 +2,10 @@
 
 You can use IP-addresses and subnet masks in any format you like: dotted decimal, unsigned long, signed long, hex, dotted hex, dotted octal and cidr.
 
+## Requirements
+
+PHP 5.3+, GMP extension
+
 ## License
 
 Copyright (c) 2013 Olegs Capligins under the [GPL v3 license](http://www.gnu.org/licenses/gpl-3.0.html).<br />
@@ -37,8 +41,8 @@ $net->address('0xffffff00')->getFormat(); // Hex
 
 // For subnets one more format is supported: CIDR.
 // Slash is mandatory for CIDR format. Other formats are similar to IP-address.
-// This method doesn't check if argument is a valid netmask. Use mask($arg)->isValid().
-$net->mask('/22')->getFormat(); // Cidr
+// This method doesn't check if argument is a valid netmask. Use mask($arg)->isValid() instead.
+$net->mask('/22')->getFormat(); // Cidr. For CIDR netmask slash is mandatory.
 $net->mask('0xff.0xff.0xff.0x00')->getFormat(); // Hex
 
 // Convert IP-address to a human-readable format
@@ -81,7 +85,6 @@ $net->address('3232235520')->mask('0xff.0xff.0x00.0x00')->has('0300.0250.0377.01
 
 // Retrieve maximal CIDR block that requested subnet fits into.
 // For a host IP the result will always be 32 as expected.
-$net->address('192.168.1.0')->getMaxBlock(); // 24
 $net->address('62.85.192.0')->getMaxBlock(); // 18
 $net->address('192.168.13.77')->getMaxBlock(); // 32
 
