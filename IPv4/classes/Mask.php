@@ -300,7 +300,7 @@ class Mask extends Address implements iSubnet
 
                 if( $format=='Cidr' ) {
                     $cidr   = intval( substr(self::$subnet, 1) );
-                    $result = sprintf("%u", -1 << (32 - $cidr));
+                    $result = sprintf("%u", floatval(ip2long(long2ip(-1 << (32 - $cidr)))));
                 }
 
                 else {
@@ -311,7 +311,7 @@ class Mask extends Address implements iSubnet
 
         }
 
-        return ( empty($result) || !$this->validateMask($result) ) ? null :$result;
+        return ( empty($result) || !$this->validateMask($result) ) ? null : $result;
 
     }
 
