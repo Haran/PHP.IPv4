@@ -2,7 +2,6 @@
 
 namespace dautkom\ipv4\classes;
 
-use ReflectionMethod;
 use dautkom\ipv4\iSubnet;
 
 class Mask extends Address implements iSubnet
@@ -122,8 +121,8 @@ class Mask extends Address implements iSubnet
     public function convertTo( $format )
     {
 
-        if( $this->isValid() && method_exists( "IPTransforms", $format ) ) {
-            $reflection = new ReflectionMethod('IPTransforms', $format);
+        if( $this->isValid() ) {
+            $reflection = new \ReflectionMethod('dautkom\ipv4\classes\Transforms', $format);
             return $reflection->invoke( new Transforms, self::$subnetResource );
         }
 

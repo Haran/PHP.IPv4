@@ -2,7 +2,6 @@
 
 namespace dautkom\ipv4\classes;
 
-use ReflectionMethod;
 use dautkom\ipv4\IPv4;
 use dautkom\ipv4\iAddress;
 
@@ -152,8 +151,8 @@ class Address extends IPv4 implements iAddress
     public function convertTo( $format )
     {
 
-        if( $this->isValid() && method_exists( "IPTransforms", $format ) ) {
-            $reflection = new ReflectionMethod('IPTransforms', $format);
+        if( $this->isValid() ) {
+            $reflection = new \ReflectionMethod('dautkom\ipv4\classes\Transforms', $format);
             return $reflection->invoke( new Transforms(), self::$ipResource );
         }
 
