@@ -4,7 +4,7 @@ You can use IP-addresses and subnet masks in any format you like: dotted decimal
 
 ## Requirements
 
-PHP 5.4+, GMP extension
+PHP 5.3+, GMP extension
 
 ## License
 
