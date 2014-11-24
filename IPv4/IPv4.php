@@ -1,5 +1,7 @@
 <?php
 
+namespace IPv4;
+
 require_once('classes' . DIRECTORY_SEPARATOR . 'Transforms.php');
 require_once('classes' . DIRECTORY_SEPARATOR . 'Address.php');
 require_once('classes' . DIRECTORY_SEPARATOR . 'Mask.php');
@@ -49,12 +51,12 @@ class IPv4
 
     /**
      * Constructor checks if GMP extension is present
-     * @throws Exception
+     * @throws \Exception
      */
     public function __construct()
     {
         if( !extension_loaded('gmp') ) {
-            throw new Exception("GMP extension must be installed and loaded");
+            throw new \Exception("GMP extension must be installed and loaded");
         }
     }
 

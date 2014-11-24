@@ -16,7 +16,7 @@ Copyright (c) 2013 Olegs Capligins under the [GPL v3 license](http://www.gnu.org
 <?php
 
 require_once('IPv4\IPv4.php');
-$net = new IPv4();
+$net = new \IPv4\IPv4();
 
 // Check if IP-address is valid
 $net->address('10.0.11.22')->isValid(); // true

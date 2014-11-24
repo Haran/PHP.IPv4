@@ -1,4 +1,7 @@
 <?php
+
+namespace IPv4;
+
 /**
  * Class for IPv4 addresses management.
  *
@@ -153,7 +156,7 @@ class Address extends IPv4 implements iAddress
     {
 
         if( $this->isValid() && method_exists( "IPTransforms", $format ) ) {
-            $reflection = new ReflectionMethod('IPTransforms', $format);
+            $reflection = new \ReflectionMethod('IPTransforms', $format);
             return $reflection->invoke( new IPTransforms, self::$ipResource );
         }
 

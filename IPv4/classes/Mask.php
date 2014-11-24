@@ -1,4 +1,7 @@
 <?php
+
+namespace IPv4;
+
 /**
  * Class for IPv4 subnet masks management.
  *
@@ -124,7 +127,7 @@ class Mask extends Address implements iSubnet
     {
 
         if( $this->isValid() && method_exists( "IPTransforms", $format ) ) {
-            $reflection = new ReflectionMethod('IPTransforms', $format);
+            $reflection = new \ReflectionMethod('IPTransforms', $format);
             return $reflection->invoke( new IPTransforms, self::$subnetResource );
         }
 

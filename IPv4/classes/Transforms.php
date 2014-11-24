@@ -1,5 +1,7 @@
 <?php
 
+namespace IPv4;
+
 /**
  * Library for IPv4 data transformation.
  * All arguments are GMP resources.
