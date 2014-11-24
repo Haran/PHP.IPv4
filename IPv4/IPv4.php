@@ -54,7 +54,6 @@ class IPv4
         if( !extension_loaded('gmp') ) {
             throw new \Exception("GMP extension must be installed and loaded");
         }
-        spl_autoload_register(array($this, 'loader'));
     }
 
 
@@ -79,14 +78,4 @@ class IPv4
         return new classes\Mask( $subnet );
     }
 
-
-    /**
-     * SPL autoload handler for those who doesn't use PSR
-     * @param $className
-     */
-    private function loader($className)
-    {
-        include preg_replace('/dautkom\\\ipv4\\\/i', '', $className) . '.php';
-    }
-    
 }

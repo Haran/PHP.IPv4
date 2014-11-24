@@ -4,7 +4,7 @@ You can use IP-addresses and subnet masks in any format you like: dotted decimal
 
 ## Requirements
 
-PHP 5.3+, GMP extension
+PHP 5.4+, GMP extension, Yii2 framework
 
 ## License
 
@@ -33,7 +33,6 @@ to the require section of your `composer.json` file.
 ```php
 <?php
 
-require_once('IPv4\IPv4.php');
 $net = new \dautkom\ipv4\IPv4();
 
 // Check if IP-address is valid
