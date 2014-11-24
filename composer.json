@@ -1,0 +1,21 @@
+{
+    "name": "dautkom/yii2-ipv4",
+    "description": "PHP library for work with IPv4",
+    "type": "library",
+    "keywords": ["yii2","extension","ipv4","subnet","ip"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Olegs Capligins",
+            "email": "oleg@dautkom.lv"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "dautkom\\ipv4\\": ""
+        }
+    }
+}

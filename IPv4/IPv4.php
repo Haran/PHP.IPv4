@@ -1,10 +1,6 @@
 <?php
 
-namespace IPv4;
-
-require_once('classes' . DIRECTORY_SEPARATOR . 'Transforms.php');
-require_once('classes' . DIRECTORY_SEPARATOR . 'Address.php');
-require_once('classes' . DIRECTORY_SEPARATOR . 'Mask.php');
+namespace dautkom\ipv4;
 
 /**
  * Interface iAddress.
@@ -44,7 +40,7 @@ interface iSubnet
  *
  * @link    https://github.com/Haran/PHP.IPv4
  * @author  Olegs Capligins
- * @licence GPLv3
+ * @licence MIT
  */
 class IPv4
 {
@@ -58,26 +54,39 @@ class IPv4
         if( !extension_loaded('gmp') ) {
             throw new \Exception("GMP extension must be installed and loaded");
         }
+        spl_autoload_register(array($this, 'loader'));
     }
+
 
     /**
      * Child initialization
      * @param $ip string
-     * @return Address
+     * @return classes\Address
      */
     public function address( $ip )
     {
-        return new Address( $ip );
+        return new classes\Address( $ip );
     }
+
 
     /**
      * Child initialization
      * @param $subnet string
-     * @return Mask
+     * @return classes\Mask
      */
     public function mask( $subnet )
     {
-        return new Mask( $subnet );
+        return new classes\Mask( $subnet );
     }
 
+
+    /**
+     * SPL autoload handler for those who doesn't use PSR
+     * @param $className
+     */
+    private function loader($className)
+    {
+        include preg_replace('/dautkom\\\ipv4\\\/i', '', $className) . '.php';
+    }
+    
 }

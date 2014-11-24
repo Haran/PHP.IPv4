@@ -1,14 +1,11 @@
 <?php
 
-namespace IPv4;
+namespace dautkom\ipv4\classes;
 
-/**
- * Class for IPv4 addresses management.
- *
- * @link    https://github.com/Haran/PHP.IPv4
- * @author  Olegs Capligins
- * @license GPL v3
- */
+use ReflectionMethod;
+use dautkom\ipv4\IPv4;
+use dautkom\ipv4\iAddress;
+
 class Address extends IPv4 implements iAddress
 {
 
@@ -41,7 +38,7 @@ class Address extends IPv4 implements iAddress
      *
      * @var array
      */
-    protected $formats = array(
+    protected $formats = [
 
         // 172.16.128.22
         'HumanReadable' => '/^((0|1[0-9]{0,2}|2[0-9]{0,1}|2[0-4][0-9]|25[0-5]|[3-9][0-9]{0,1})\.){3}(0|1[0-9]{0,2}|2[0-9]{0,1}|2[0-4][0-9]|25[0-5]|[3-9][0-9]{0,1})$/',
@@ -56,9 +53,9 @@ class Address extends IPv4 implements iAddress
         'Bin'           => '/(?=^.*1.*$)^([0-1]{32})$/',
 
         // ip2long formats
-        'Long'          => array(-2147483649, 4294967296),
+        'Long'          => [-2147483649, 4294967296],
 
-    );
+    ];
 
     /**
      * Constructor registers IP-address static property
@@ -135,7 +132,7 @@ class Address extends IPv4 implements iAddress
      */
     public function getHumanReadable()
     {
-        $to = new IPTransforms;
+        $to = new Transforms();
         return ( $this->isValid() ) ? $to->HumanReadable(self::$ipResource) : null;
     }
 
@@ -156,8 +153,8 @@ class Address extends IPv4 implements iAddress
     {
 
         if( $this->isValid() && method_exists( "IPTransforms", $format ) ) {
-            $reflection = new \ReflectionMethod('IPTransforms', $format);
-            return $reflection->invoke( new IPTransforms, self::$ipResource );
+            $reflection = new ReflectionMethod('IPTransforms', $format);
+            return $reflection->invoke( new Transforms(), self::$ipResource );
         }
 
         return null;

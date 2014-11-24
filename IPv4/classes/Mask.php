@@ -1,14 +1,10 @@
 <?php
 
-namespace IPv4;
+namespace dautkom\ipv4\classes;
 
-/**
- * Class for IPv4 subnet masks management.
- *
- * @link    https://github.com/Haran/PHP.IPv4
- * @author  Olegs Capligins
- * @license GPL v3
- */
+use ReflectionMethod;
+use dautkom\ipv4\iSubnet;
+
 class Mask extends Address implements iSubnet
 {
 
@@ -22,7 +18,7 @@ class Mask extends Address implements iSubnet
     {
 
         // Adding new pattern
-        $this->formats['Cidr'] = '%^(/[1-9]$|/[1-2][0-9]|/3[0-2])$%i';
+        $this->formats = array_merge($this->formats, ['Cidr' => '%^(/[1-9]$|/[1-2][0-9]|/3[0-2])$%i']);
 
         // Properties
         self::$subnet          = $subnet;
@@ -105,7 +101,7 @@ class Mask extends Address implements iSubnet
      */
     public function getHumanReadable()
     {
-        $to = new IPTransforms;
+        $to = new Transforms;
         return ( $this->isValid() ) ? $to->HumanReadable(self::$subnetResource) : null;
     }
 
@@ -127,8 +123,8 @@ class Mask extends Address implements iSubnet
     {
 
         if( $this->isValid() && method_exists( "IPTransforms", $format ) ) {
-            $reflection = new \ReflectionMethod('IPTransforms', $format);
-            return $reflection->invoke( new IPTransforms, self::$subnetResource );
+            $reflection = new ReflectionMethod('IPTransforms', $format);
+            return $reflection->invoke( new Transforms, self::$subnetResource );
         }
 
         return null;
@@ -342,4 +338,4 @@ class Mask extends Address implements iSubnet
 
     }
 
-}
+} 

@@ -8,7 +8,25 @@ PHP 5.3+, GMP extension
 
 ## License
 
-Copyright (c) 2013 Olegs Capligins under the [GPL v3 license](http://www.gnu.org/licenses/gpl-3.0.html).<br />
+Copyright (c) 2013 Olegs Capligins under the MIT license.<br />
+
+## Installation
+
+The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
+
+Either run
+
+```
+php composer.phar require --prefer-dist dautkom/yii2-ipv4 "*"
+```
+
+or add
+
+```
+"dautkom/yii2-ipv4": "*"
+```
+
+to the require section of your `composer.json` file.
 
 ## Usage:
 
@@ -16,7 +34,7 @@ Copyright (c) 2013 Olegs Capligins under the [GPL v3 license](http://www.gnu.org
 <?php
 
 require_once('IPv4\IPv4.php');
-$net = new \IPv4\IPv4();
+$net = new \dautkom\ipv4\IPv4();
 
 // Check if IP-address is valid
 $net->address('10.0.11.22')->isValid(); // true
