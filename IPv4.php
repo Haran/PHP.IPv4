@@ -26,10 +26,10 @@ interface iSubnet
     public function getRange();
     public function has( $ip );
     public function getFormat();
-    public function getAddress();
     public function countHosts();
     public function isBroadcast();
     public function getBroadcast();
+    public function getSubnetAddress();
     public function getHumanReadable();
     public function convertTo( $format );
 }
@@ -46,14 +46,22 @@ class IPv4
 {
 
     /**
+     * Error flag
+     * @var bool
+     */
+    protected static $show_errors;
+
+
+    /**
      * Constructor checks if GMP extension is present
      * @throws \Exception
      */
-    public function __construct()
+    public function __construct($flag = false)
     {
         if( !extension_loaded('gmp') ) {
             throw new \Exception("GMP extension must be installed and loaded");
         }
+        self::$show_errors = $flag;
     }
 
 

@@ -2,6 +2,12 @@
 
 namespace dautkom\ipv4\classes;
 
+/**
+ * Class Transforms
+ * Reflection class for IPv4 formats converting
+ *
+ * @package dautkom\ipv4\classes
+ */
 class Transforms
 {
 
@@ -94,7 +100,7 @@ class Transforms
      * Be sure to add slash to the returned value if necessary.
      *
      * @param $res resource
-     * @return int
+     * @return null|string
      */
     public function Cidr( $res )
     {

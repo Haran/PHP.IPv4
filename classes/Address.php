@@ -5,6 +5,12 @@ namespace dautkom\ipv4\classes;
 use dautkom\ipv4\IPv4;
 use dautkom\ipv4\iAddress;
 
+/**
+ * Class Address
+ * Work with IP-addresses or with subnet addresses
+ *
+ * @package dautkom\ipv4\classes
+ */
 class Address extends IPv4 implements iAddress
 {
 
@@ -70,6 +76,9 @@ class Address extends IPv4 implements iAddress
         if( !is_null(self::$ipResource) ) {
             self::$ipResource = gmp_init( self::$ipResource );
         }
+        else {
+            if(self::$show_errors) trigger_error("Invalid IP-address", E_USER_WARNING);
+        }
 
     }
 
@@ -93,7 +102,7 @@ class Address extends IPv4 implements iAddress
      * - Bin
      *
      * @param null $ip
-     * @return string
+     * @return string|null
      */
     public function getFormat( $ip = null )
     {

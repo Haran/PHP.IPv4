@@ -4,6 +4,12 @@ namespace dautkom\ipv4\classes;
 
 use dautkom\ipv4\iSubnet;
 
+/**
+ * Class Mask
+ * Work with subnet masks and subnet calculations
+ *
+ * @package dautkom\ipv4\classes
+ */
 class Mask extends Address implements iSubnet
 {
 
@@ -25,6 +31,9 @@ class Mask extends Address implements iSubnet
 
         if( !is_null(self::$subnetResource) ) {
             self::$subnetResource = gmp_init( self::$subnetResource );
+        }
+        else {
+            if(self::$show_errors) trigger_error("Invalid subnet mask", E_USER_WARNING);
         }
 
     }
@@ -66,7 +75,7 @@ class Mask extends Address implements iSubnet
      * - Bin
      * - Cidr
      *
-     * @return string
+     * @return string|null
      */
     public function getFormat()
     {
@@ -135,11 +144,14 @@ class Mask extends Address implements iSubnet
      *
      * @return string
      */
-    public function getAddress()
+    public function getSubnetAddress()
     {
 
         if( parent::isValid() && self::isValid() ) {
             return long2ip( gmp_strval( gmp_and(self::$ipResource, self::$subnetResource) ) );
+        }
+        elseif( !parent::isValid() ) {
+            if(self::$show_errors) trigger_error("Unset or invalid IP-address", E_USER_WARNING);
         }
 
         return null;
@@ -155,6 +167,9 @@ class Mask extends Address implements iSubnet
     {
 
         if ( !parent::isValid() || !self::isValid() ) {
+            if( !parent::isValid() ) {
+                if(self::$show_errors) trigger_error("Unset or invalid IP-address", E_USER_WARNING);
+            }
             return null;
         }
 
@@ -178,10 +193,14 @@ class Mask extends Address implements iSubnet
     {
 
         if ( !$this->isValid(true) ) {
+            if(self::$show_errors) trigger_error('Invalid subnet address', E_USER_WARNING);
             return null;
         }
 
-        return abs(gmp_strval( gmp_xor(self::$subnetResource, gmp_init('0xffffffff', 16)) )-1);
+        $result = gmp_strval( gmp_xor(self::$subnetResource, gmp_init('0xffffffff', 16)) ) - 1;
+
+        // Is it supposed to exclude gateway?
+        return ($exclude) ? (($result < 0) ? abs($result) : ($result-1) ) : abs($result);
 
     }
 
@@ -195,6 +214,9 @@ class Mask extends Address implements iSubnet
     {
 
         if ( !$this->isValid() || !parent::isValid() ) {
+            if( !parent::isValid() ) {
+                if(self::$show_errors) trigger_error("Unset or invalid IP-address", E_USER_WARNING);
+            }
             return null;
         }
 
@@ -230,7 +252,7 @@ class Mask extends Address implements iSubnet
      */
     public function isSubnet()
     {
-        $subnet = $this->getAddress();
+        $subnet = $this->getSubnetAddress();
 
         if( is_null($subnet) ) {
             return null;
@@ -248,11 +270,16 @@ class Mask extends Address implements iSubnet
     public function has( $ip )
     {
 
-        if ( !$this->isValid() || !parent::isValid() || is_null(parent::getFormat($ip)) ) {
-            return null;
+        if ( !$this->isValid() || !parent::isValid() ) {
+            return false;
         }
 
-        $subnet = ip2long($this->getAddress());
+        if( !$this->address(parent::getHumanReadable())->mask(self::$subnet)->isValid(true) ) {
+            if(self::$show_errors) trigger_error("Invalid subnet address", E_USER_WARNING);
+            return false;
+        }
+
+        $subnet = ip2long($this->getSubnetAddress());
         $mask   = self::convertTo('Cidr');
         $ip     = ip2long($ip);
 
@@ -337,4 +364,4 @@ class Mask extends Address implements iSubnet
 
     }
 
-} 
+}

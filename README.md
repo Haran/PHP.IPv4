@@ -6,9 +6,21 @@ You can use IP-addresses and subnet masks in any format you like: dotted decimal
 
 PHP 5.4+, GMP extension, Yii2 framework
 
-## License
+### Standalone
 
-Copyright (c) 2013 Olegs Capligins under the MIT license.<br />
+**Q:** Is it possible to use this library without Yii2?
+**A:** Yes it is. Add includes into the `IPv4.php` file after `namespace dautkom\ipv4;`
+
+```php
+<?php
+
+namespace dautkom\ipv4;
+
+require('classes/Address.php');
+require('classes/Mask.php');
+require('classes/Transforms.php');
+
+```
 
 ## Installation
 
@@ -33,7 +45,11 @@ to the require section of your `composer.json` file.
 ```php
 <?php
 
+// No errors are triggered
 $net = new \dautkom\ipv4\IPv4();
+
+// Or for verbose errors (E_USER_WARNING is triggered in some methods)
+$net = new \dautkom\ipv4\IPv4(true);
 
 // Check if IP-address is valid
 $net->address('10.0.11.22')->isValid(); // true
@@ -58,7 +74,7 @@ $net->address('0xffffff00')->getFormat(); // Hex
 
 // For subnets one more format is supported: CIDR.
 // Slash is mandatory for CIDR format. Other formats are similar to IP-address.
-// This method doesn't check if argument is a valid netmask. Use mask($arg)->isValid() instead.
+// If non-verbose mode is running, be sure to validate arguments first.
 $net->mask('/22')->getFormat(); // Cidr. For CIDR netmask slash is mandatory.
 $net->mask('0xff.0xff.0xff.0x00')->getFormat(); // Hex
 
@@ -71,7 +87,7 @@ $net->address('0xc0.0xA8.0xFF.0x6D')->convertTo('Long'); // 3232300909
 $net->mask('255.255.255.0')->convertTo('Cidr'); // 24
 
 // Get subnet address from ip and mask
-$net->address('192.168.1.2')->mask('255.255.255.0')->getAddress(); // 192.168.1.0
+$net->address('192.168.1.2')->mask('255.255.255.0')->getSubnetAddress(); // 192.168.1.0
 
 // Check if given address is a subnet address
 $net->address('192.168.1.255')->mask('255.255.255.0')->isSubnet(); // false
@@ -106,3 +122,7 @@ $net->address('62.85.192.0')->getMaxBlock(); // 18
 $net->address('192.168.13.77')->getMaxBlock(); // 32
 
 ```
+
+## License
+
+Copyright (c) 2013-2014 Olegs Capligins under the MIT license.<br />
