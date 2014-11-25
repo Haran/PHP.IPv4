@@ -6,9 +6,8 @@ You can use IP-addresses and subnet masks in any format you like: dotted decimal
 
 PHP 5.4+, GMP extension, Yii2 framework
 
-### Standalone
+### Is it possible to use this library without Yii2?
 
-**Q:** Is it possible to use this library without Yii2?
 **A:** Yes it is. Add includes into the `IPv4.php` file after `namespace dautkom\ipv4;`
 
 ```php
